@@ -9,7 +9,7 @@
     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs user-info">
       <div class="card ">
         <img class="card-img-top"
-             src="/images/avatar.jpg"
+             src="{{ $user->avatar_url }}"
              alt="{{ $user->name }}">
         <div class="card-body">
           <h5><strong>个人简介</strong></h5>
