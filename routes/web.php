@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PagesController;
 
 /*
@@ -15,3 +16,6 @@ use App\Http\Controllers\PagesController;
 */
 
 Route::get('/', [PagesController::class, 'root'])->name('root');
+
+Auth::routes();
+
