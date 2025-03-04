@@ -22,3 +22,11 @@ if (!function_exists('active_class')) {
         return request()->routeIs($route) ? $class : '';
     }
 }
+
+if (!function_exists('make_excerpt')) {
+    function make_excerpt($value, $length = 200)
+    {
+        $excerpt = trim(preg_replace('/\r\n|\r|\n+/', '', strip_tags($value)));
+        return Str::limit($excerpt, $length);
+    }
+}

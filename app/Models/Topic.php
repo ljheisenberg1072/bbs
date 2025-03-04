@@ -12,12 +12,7 @@ class Topic extends Model
     protected $fillable = [
         'title',
         'body',
-        'user_id',
         'category_id',
-        'reply_count',
-        'view_count',
-        'last_reply_user_id',
-        'order',
         'excerpt',
         'slug',
     ];
@@ -30,6 +25,11 @@ class Topic extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     public function scopeWithOrder($query, $order)
@@ -54,4 +54,14 @@ class Topic extends Model
         return $query->orderBy('updated_at', 'desc');
     }
 
+    public function link($params = [])
+    {
+        return route('topics.show', array_merge([$this->id, $this->slug], $params));
+    }
+
+    public function updateReplyCount()
+    {
+        $this->reply_count = $this->replies->count();
+        $this->save();
+    }
 }

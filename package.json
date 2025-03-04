@@ -22,6 +22,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^6.7.2"
+        "@fortawesome/fontawesome-free": "^6.7.2",
+        "jquery": "^3.7.1"
     }
 }

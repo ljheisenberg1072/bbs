@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Topic;
+use App\Models\Reply;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TopicsTableSeeder extends Seeder
+class RepliesTableSeeder extends Seeder
 {
-    use WithoutModelEvents;
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Topic::factory()->count(100)->create();
+        Reply::factory()->times(1000)->create();
     }
 }

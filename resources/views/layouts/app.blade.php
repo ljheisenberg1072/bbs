@@ -10,10 +10,11 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>@yield('title', 'LaraBBS') - Laravel</title>
+  <meta name="description" content="@yield('description', 'LaraBBS 爱好者社区')" />
 
   <!-- Styles -->
   <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
+  @yield('styles')
 </head>
 
 <body>
@@ -34,6 +35,7 @@
 
 <!-- Scripts -->
 <script src="{{ mix('js/app.js') }}"></script>
+@yield('scripts')
 </body>
 
 </html>
