@@ -54,4 +54,9 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return Storage::disk('upload')->url($this->attributes['avatar']);
     }
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
 }

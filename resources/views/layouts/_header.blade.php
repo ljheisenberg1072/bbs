@@ -10,8 +10,12 @@
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
       <!-- Left Side Of Navbar -->
-      <ul class="navbar-nav">
-
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link {{ active_class('topics.index') }}" href="{{ route('topics.index') }}">话题</a></li>
+        <li class="nav-item"><a class="nav-link {{ active_class('categories.show', 1) }}" href="{{ route('categories.show', 1) }}">分享</a></li>
+        <li class="nav-item"><a class="nav-link {{ active_class('categories.show', 2) }}" href="{{ route('categories.show', 2) }}">教程</a></li>
+        <li class="nav-item"><a class="nav-link {{ active_class('categories.show', 3) }}" href="{{ route('categories.show', 3) }}">问答</a></li>
+        <li class="nav-item"><a class="nav-link {{ active_class('categories.show', 4) }}" href="{{ route('categories.show', 4) }}">公告</a></li>
       </ul>
 
       <!-- Right Side Of Navbar -->
@@ -33,7 +37,7 @@
               <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">编辑资料</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" id="logout" href="#">
-                <form action="{{ route('logout') }}" method="POST">
+                <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('您确定要退出吗？');">
                   {{ csrf_field() }}
                   <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
                 </form>
