@@ -15,7 +15,10 @@
         "mews/captcha": "^3.4",
         "mews/purifier": "^3.4",
         "overtrue/pinyin": "^5.3",
-        "predis/predis": "^2.3"
+        "predis/predis": "^2.3",
+        "spatie/laravel-permission": "^6.15",
+        "summerblue/administrator": "^10.0",
+        "viacreative/sudo-su": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",

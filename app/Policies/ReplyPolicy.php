@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\Reply;
 use App\Models\User;
 
-class ReplyPolicy
+class ReplyPolicy extends Policy
 {
     public function destroy(User $user, Reply $reply)
     {

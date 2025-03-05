@@ -58,3 +58,4 @@ Route::post('upload_image', [TopicsController::class, 'uploadImage'])->name('top
 Route::resource('categories', CategoriesController::class, ['only' => ['show']]);
 Route::resource('replies', RepliesController::class, ['only' => ['store', 'destroy']]);
 Route::resource('notifications', NotificationsController::class, ['only' => ['index']]);
+Route::get('permission-denied', [PagesController::class, 'permissionDenied'])->name('permission-denied');
