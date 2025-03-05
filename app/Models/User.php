@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Traits\ActiveUserHelper;
+use App\Models\Traits\LastActivedAtHelper;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, HasRoles;
+    use HasApiTokens, HasFactory, HasRoles, ActiveUserHelper, LastActivedAtHelper;
     use Notifiable {
         notify as protected laravelNotify;
     }

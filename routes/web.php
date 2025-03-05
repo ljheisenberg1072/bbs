@@ -25,7 +25,7 @@ use App\Http\Controllers\NotificationsController;
 |
 */
 
-Route::get('/', [PagesController::class, 'root'])->name('root');
+Route::get('/', [TopicsController::class, 'index'])->name('root');
 
 //  用户身份验证相关
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

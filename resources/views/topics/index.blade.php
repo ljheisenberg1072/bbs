@@ -15,7 +15,7 @@
 
         <div class="card-header bg-transparent">
           <ul class="nav nav-pills">
-            <li class="nav-item"><a class="nav-link {{ ((active_class('topics.index') || active_class('categories.show')) && !request('order')) || request('order') == 'default' ? 'active' : '' }}" href="{{ Request::url() }}?order=default">最后回复</a></li>
+            <li class="nav-item"><a class="nav-link {{ ((active_class('root')|| active_class('topics.index') || active_class('categories.show')) && !request('order')) || request('order') == 'default' ? 'active' : '' }}" href="{{ Request::url() }}?order=default">最后回复</a></li>
             <li class="nav-item"><a class="nav-link {{ request('order') == 'recent' ? 'active' : '' }}" href="{{ Request::url() }}?order=recent">最新发布</a></li>
           </ul>
         </div>

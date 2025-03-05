@@ -73,6 +73,7 @@ return array(
         ],
         '站点配置' => [
             'settings.site',
+            'links',
         ],
     ],
 
