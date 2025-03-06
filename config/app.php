@@ -144,6 +144,9 @@ return [
         // 'store' => 'redis',
     ],
 
+    //  是否关闭注册
+    'close_register' => env('CLOSE_REGISTER', false),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

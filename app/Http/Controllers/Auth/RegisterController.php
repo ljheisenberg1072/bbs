@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -68,10 +69,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if (config('app.close_register')) {
+            throw new InvalidRequestException('暂停注册中！');
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
     }
+
 }
