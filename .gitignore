@@ -8,6 +8,7 @@
 /public/storage
 /public/mix-manifest.json
 /storage/*.key
+/storage/administrator_settings
 /vendor
 .env
 .env.backup
