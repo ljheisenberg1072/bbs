@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\CaptchasController;
 use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\ImagesController;
+use App\Http\Controllers\Api\CategoriesController;
+use App\Http\Controllers\Api\TopicsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,10 @@ Route::prefix('v1')->name('api.v1')->group(function() {
         Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])->name('authorizations.destroy');
     });
     Route::middleware('throttle:'.config('api.rate_limits.access'))->group(function() {
+        //  分类列表
+        Route::apiResource('categories', CategoriesController::class)->only('index');
+        Route::apiResource('topics', TopicsController::class)->only(['index', 'show']);
+        Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
         //  某个用户的详情页
         Route::get('users/{user}', [UsersController::class, 'show'])->name('users.show');
         //  登录后可以访问的接口
@@ -51,6 +57,7 @@ Route::prefix('v1')->name('api.v1')->group(function() {
             Route::patch('user', [UsersController::class, 'update'])->name('user.update');
             //  上传图片
             Route::post('images', [ImagesController::class, 'store'])->name('images.store');
+            Route::apiResource('topics', TopicsController::class)->only(['store', 'update', 'destroy']);
         });
     });
 });

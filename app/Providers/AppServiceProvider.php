@@ -34,7 +34,6 @@ class AppServiceProvider extends ServiceProvider
         Topic::observe(TopicObserver::class);
         Reply::observe(ReplyObserver::class);
         Link::observe(LinkObserver::class);
-        JsonResource::withoutWrapping();
         \Illuminate\Pagination\Paginator::useBootstrap();
     }
 }
