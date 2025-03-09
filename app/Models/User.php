@@ -13,8 +13,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\ActiveUserHelper;
 use App\Models\Traits\LastActivedAtHelper;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
     use HasApiTokens, HasFactory, HasRoles, ActiveUserHelper, LastActivedAtHelper;
     use Notifiable {
@@ -33,6 +34,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'introduction',
         'avatar',
+        'weixin_openid',
+        'weixin_unionid',
     ];
 
     /**
@@ -43,6 +46,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'weixin_openid',
+        'weixin_unionid',
     ];
 
     /**
@@ -95,5 +100,15 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notification_count = 0;
         $this->save();
         $this->unreadNotifications->markAsRead();
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
