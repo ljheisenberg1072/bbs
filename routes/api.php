@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\TopicsController;
+use App\Http\Controllers\Api\RepliesController;
+use App\Http\Controllers\Api\NotificationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +47,14 @@ Route::prefix('v1')->name('api.v1')->group(function() {
     Route::middleware('throttle:'.config('api.rate_limits.access'))->group(function() {
         //  分类列表
         Route::apiResource('categories', CategoriesController::class)->only('index');
+        //  话题列表、详情
         Route::apiResource('topics', TopicsController::class)->only(['index', 'show']);
+        //  话题回复列表
+        Route::apiResource('topics.replies', RepliesController::class)->only(['index']);
+        //  某个用户的话题列表
         Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
+        //  某个用户的回复列表
+        Route::get('users/{user}/replies', [RepliesController::class, 'userIndex'])->name('users.replies.index');
         //  某个用户的详情页
         Route::get('users/{user}', [UsersController::class, 'show'])->name('users.show');
         //  登录后可以访问的接口
@@ -57,7 +65,16 @@ Route::prefix('v1')->name('api.v1')->group(function() {
             Route::patch('user', [UsersController::class, 'update'])->name('user.update');
             //  上传图片
             Route::post('images', [ImagesController::class, 'store'])->name('images.store');
+            //  发布、修改、删除话题
             Route::apiResource('topics', TopicsController::class)->only(['store', 'update', 'destroy']);
+            //  发布、删除回复
+            Route::apiResource('topics.replies', RepliesController::class)->only(['store', 'destroy']);
+            //  通知列表
+            Route::apiResource('notifications', NotificationsController::class)->only(['index']);
+            //  通知统计
+            Route::get('notifications/stats', [NotificationsController::class, 'stats'])->name('notifications.stats');
+            //  标记消息通知为已读
+            Route::patch('user/read/notifications', [NotificationsController::class, 'read'])->name('user.notifications.read');
         });
     });
 });
