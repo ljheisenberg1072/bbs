@@ -35,7 +35,7 @@ class GenerateToken extends Command
             return;
         }
 
-        $ttl = 24 * 60;
+        $ttl = 7 * 24 * 60;
         $this->info(auth('api')->setTTL($ttl)->login($user));
     }
 }

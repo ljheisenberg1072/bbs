@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\TopicsController;
 use App\Http\Controllers\Api\RepliesController;
 use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\PermissionsController;
+use App\Http\Controllers\Api\LinksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,10 @@ Route::prefix('v1')->name('api.v1')->group(function() {
         Route::get('users/{user}/replies', [RepliesController::class, 'userIndex'])->name('users.replies.index');
         //  某个用户的详情页
         Route::get('users/{user}', [UsersController::class, 'show'])->name('users.show');
+        //  资源推荐
+        Route::apiResource('links', LinksController::class)->only(['index']);
+        //  活跃用户
+        Route::get('actived/users', [UsersController::class, 'activedIndex'])->name('actived.users.index');
         //  登录后可以访问的接口
         Route::middleware('auth:api')->group(function() {
             //  当前登录用户信息

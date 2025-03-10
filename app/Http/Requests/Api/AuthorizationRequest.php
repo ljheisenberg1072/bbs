@@ -8,7 +8,7 @@ class AuthorizationRequest extends FormRequest
     {
         return [
             'username' => 'required|string',
-            'password' => 'required|alpha_dash|min:6',
+            'password' => 'required|regex:/^[A-Za-z0-9\-\_\*@#]+$/|min:6',
         ];
     }
 }
