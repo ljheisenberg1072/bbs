@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\AuthorizationRequest;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
+use App\Http\Requests\Api\WeappAuthorizationRequest;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,7 @@ class AuthorizationsController extends Controller
                 break;
         }
 
-        $token = auth('api')->login($user);
+        $token = auth('api')->fromUser($user);
 
         return $this->responseWithToken($token)->setStatusCode(201);
     }
@@ -72,6 +73,50 @@ class AuthorizationsController extends Controller
         if (!$token = Auth::guard('api')->attempt($credentials)) {
             throw new AuthenticationException(trans('auth.failed'));
         }
+
+        return $this->responseWithToken($token)->setStatusCode(201);
+    }
+
+    public function weappStore(WeappAuthorizationRequest $request)
+    {
+        $code = $request->code;
+        //  根据 code 获取微信 openid 和 session_key
+        $miniProgram = app('wechat.mini_program');
+        $data = $miniProgram->auth->session($code);
+
+        if (isset($data['errcode'])) {
+            throw new AuthenticationException('code 不正确');
+        }
+
+        //  找不到 openid 对应的用户
+        $user = User::where('weapp_openid', $data['openid'])->first();
+
+        $attributes['weixin_session_key'] = $data['session_key'];
+
+        if (!$user) {
+            if (!$request->username) {
+                throw new AuthenticationException('用户不存在');
+            }
+
+            $username = $request->username;
+
+            filter_var($username, FILTER_VALIDATE_EMAIL) ?
+                $credentials['email'] = $username :
+                $credentials['phone'] = $username;
+
+            $credentials['password'] = $request->password;
+
+            if (!auth('api')->once($credentials)) {
+                throw new AuthenticationException('用户名或密码错误');
+            }
+
+            $user = auth('api')->getUser();
+            $attributes['weapp_openid'] = $data['openid'];
+        }
+
+        $user->update($attributes);
+
+        $token = auth('api')->fromUser($user);
 
         return $this->responseWithToken($token)->setStatusCode(201);
     }

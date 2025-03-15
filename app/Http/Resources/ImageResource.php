@@ -14,6 +14,7 @@ class ImageResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        ImageResource::withoutWrapping();
         return parent::toArray($request);
     }
 }

@@ -15,6 +15,8 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        UserResource::withoutWrapping();
+
         if (!$this->showSensitiveFields) {
             $this->resource->makeHidden(['phone', 'email']);
         }

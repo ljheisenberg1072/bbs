@@ -6,6 +6,7 @@ use App\Handlers\ImageUploadHandler;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -27,6 +28,10 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
     {
+        Auth::guard('web')->logout();
+        $request->session()->regenerate();
+        Auth::attempt();
+        User::query()->find(1);
         $this->authorize('update', $user);
         $data = $request->all();
 

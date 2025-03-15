@@ -19,7 +19,7 @@ class CaptchasController extends Controller
         Cache::put($captchaKey, ['phone' => $phone, 'code' => $captcha->getPhrase()], $expiredAt);
 
         $result = [
-            'cache_key' => $captchaKey,
+            'captcha_key' => $captchaKey,
             'expired_at' => $expiredAt->toDateTimeString(),
             'captcha_image_content' => $captcha->inline(),
         ];

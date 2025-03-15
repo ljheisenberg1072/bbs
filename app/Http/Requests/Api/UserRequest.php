@@ -14,6 +14,7 @@ class UserRequest extends FormRequest
                     'verification_key' => 'required|string',
                     'verification_code' => 'required|string',
                 ];
+            case 'PUT':
             case 'PATCH':
                 $userId = auth('api')->id();
 

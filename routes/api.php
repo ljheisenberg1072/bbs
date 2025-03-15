@@ -41,6 +41,10 @@ Route::prefix('v1')->name('api.v1')->group(function() {
         Route::post('socials/{social_type}/authorizations', [AuthorizationsController::class, 'socialStore'])->where('social_type', 'wechat')->name('socials.authorizations.store');
         //  登录
         Route::post('authorizations', [AuthorizationsController::class, 'store'])->name('authorizations.store');
+        //  小程序登录
+        Route::post('weapp/authorizations', [AuthorizationsController::class, 'weappStore'])->name('weapp.authorizations.store');
+        //  小程序注册
+        Route::post('weapp/users', [UsersController::class, 'weappStore'])->name('weapp.users.store');
         //  刷新token
         Route::put('authorizations/current', [AuthorizationsController::class, 'update'])->name('authorizations.update');
         //  删除token
@@ -69,6 +73,7 @@ Route::prefix('v1')->name('api.v1')->group(function() {
             Route::get('user', [UsersController::class, 'me'])->name('user.show');
             //  编辑用户信息
             Route::patch('user', [UsersController::class, 'update'])->name('user.update');
+            Route::put('user', [UsersController::class, 'update'])->name('user.update');
             //  上传图片
             Route::post('images', [ImagesController::class, 'store'])->name('images.store');
             //  发布、修改、删除话题
@@ -81,6 +86,7 @@ Route::prefix('v1')->name('api.v1')->group(function() {
             Route::get('notifications/stats', [NotificationsController::class, 'stats'])->name('notifications.stats');
             //  标记消息通知为已读
             Route::patch('user/read/notifications', [NotificationsController::class, 'read'])->name('user.notifications.read');
+            Route::put('user/read/notifications', [NotificationsController::class, 'read'])->name('user.notifications.read');
             //  当前登录用户权限
             Route::get('user/permissions', [PermissionsController::class, 'index'])->name('user.permissions.index');
         });

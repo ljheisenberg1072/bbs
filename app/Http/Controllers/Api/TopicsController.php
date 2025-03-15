@@ -28,6 +28,8 @@ class TopicsController extends Controller
 
     public function show($topicId, TopicQuery $query)
     {
+        TopicResource::withoutWrapping();
+
         $topic = $query->findOrFail($topicId);
 
         return new TopicResource($topic);
